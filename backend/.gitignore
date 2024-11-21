@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+venv/
+.env
+
+# Compiled output
+dist/
+build/
+*.pyc
+__pycache__/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+
+# Environment variables
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Database
+*.sqlite
+*.db

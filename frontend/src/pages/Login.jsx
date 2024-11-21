@@ -2,8 +2,14 @@ import React from "react";
 import sigin_icon from "../assets/signin.gif";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
+import axios from "axios";
+import SumerryApi from "../../common";
+import { toast } from "react-toastify";
+
+
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
     email : "",
@@ -12,10 +18,25 @@ const Login = () => {
   const handleChange = (e) => {
     setData({...data, [e.target.name] : e.target.value})
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(data);
-  }
+    try{  
+    const response = await axios.post(SumerryApi.signin.url, data, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })  
+    if(response.data.success){
+      toast.success(response.data.message)
+      navigate('/')
+    }else{
+      toast.error(response.data.message)
+    }
+  }catch(error){
+      toast.error(error.response.data.message)
+    }
+  } 
   return (
     <section id="login" className="mt-10">
       <div className="container mx-auto px-4">
@@ -23,7 +44,7 @@ const Login = () => {
           <div className="w-20 h-20 mx-auto">
             <img src={sigin_icon} alt="Login-logo" />
           </div>
-          <form action="" className="pt-5" onSubmit={handleSubmit}>
+          <form action="" className="pt-6 flex flex-col gap-2" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email">Email</label>
               <div className="bg-slate-100 p-2">
