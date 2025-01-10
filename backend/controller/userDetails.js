@@ -6,10 +6,10 @@ const userDetailsController = async (req, res) => {
         if(!user){
             return res.status(404).json({message:'User not found',success:false})
         }
-        res.status(200).json({user,success:true})
+        res.status(200).json({message:'User details fetched successfully',user,success:true})
     }catch(error){
         console.log(error)
         return res.status(500).json({message: error.message, success: false})
     }
 }
-export default userDetailsController
+export default userDetailsController;

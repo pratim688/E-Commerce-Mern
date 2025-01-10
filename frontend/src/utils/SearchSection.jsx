@@ -2,7 +2,7 @@ import React from "react";
 import { GrSearch } from "react-icons/gr";
 const SearchSection = () => {
   return (
-    <div className="flex items-center w-full justify-between max-w-sm border rounded-sm focus-within:shadow-md pl-2 bg-red-50">
+    <div className="flex items-center w-full justify-between border rounded-sm focus-within:shadow-md pl-2 bg-red-50">
       <input
         type="text"
         placeholder="Search product here..."

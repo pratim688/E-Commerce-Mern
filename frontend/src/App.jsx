@@ -7,29 +7,34 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 import { useEffect } from 'react'
-import SumerryApi from '../common';
 
+import Context from './context';
+import { useDispatch } from 'react-redux';
+import { setUser } from './store/userSlice';
+import SumerryApi from './common';
 function App() {
+  const dispatch = useDispatch();
   const userDataResponse = async()=>{
     const response = await axios.get(SumerryApi.userDetails.url,{withCredentials:true})
-    console.log(response.data)
+    if(response.data.success){
+      dispatch(setUser(response.data.user))
+    }
+    
   }
-  useEffect(()=>{
-    userDataResponse()
-  },[])
 
   return (
     <>
+      <Context.Provider value={{userData:userDataResponse}}>
       {/* <Navbar /> */}
       <Header/>
-      <div className="block md:hidden w-full px-4 mt-2">
-        <SearchSection />
-      </div>
-      <main>
+      
+      <main className=''>
         <Outlet />
       </main>
+      <Footer/>
       <ToastContainer />
       {/* <Footer/> */}
+      </Context.Provider>
     </>
   )
 }

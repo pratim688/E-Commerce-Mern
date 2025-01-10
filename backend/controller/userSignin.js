@@ -20,7 +20,7 @@ const userSignInController = async (req, res) => {
             throw new Error('JWT_SECRET is not defined in environment variables')
         }
         
-        const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'1h'})
+        const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'7d'})
         res.cookie('token',token,{httpOnly:true})
         res.status(200).json({message:'User logged in successfully',user,success:true})
 

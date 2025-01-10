@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { imageToBase64 } from "../helper/imageTobase64";
-import SumerryApi from "../../common";
+import SumerryApi from "../common";
 import axios from "axios";
 import {toast} from 'react-toastify'
 
@@ -39,6 +39,7 @@ const SignUp = () => {
         'Content-Type': 'application/json',
       },
     })
+    
     if(response.data.success){
       toast.success(response.data.message +" ,please login to continue");
       navigate('/login')

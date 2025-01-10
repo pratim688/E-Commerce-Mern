@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs'
 
 export const userSignup = async (req, res) => {
     try {
-        const { name, email, password } = req.body
-        if (!name || !email || !password) {
+        const { name, email, password, profilePicture } = req.body
+        if (!name || !email || !password || !profilePicture) {
             return res.status(400).json({ message: 'All fields are required' })
         }
         const existingUser = await User.findOne({ email })
@@ -12,7 +12,7 @@ export const userSignup = async (req, res) => {
             return res.status(400).json({ message: 'User already exists', success:false })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
-        const user = await User.create({ name, email, password: hashedPassword })
+        const user = await User.create({ name, email, password: hashedPassword, profilePicture })
         res.status(201).json({ message: 'User created successfully', user, success:true })
     } catch (error) {
         console.log(error)
